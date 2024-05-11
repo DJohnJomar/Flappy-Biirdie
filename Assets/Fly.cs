@@ -8,16 +8,20 @@ public class Fly : MonoBehaviour
     [SerializeField] private float velocity = 7.5f;
     [SerializeField] private float rotationSpeed = 20f;
     private Rigidbody2D rb;
+    AudioManager audioManager;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             rb.velocity = Vector2.up * velocity;
+            audioManager.PlaySFX(audioManager.jump);
+
         }
     }
 
@@ -28,6 +32,8 @@ public class Fly : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        GameManager.instance.GameOver();
+        audioManager.PlaySFX(audioManager.death);
+        audioManager.StopBackgroundMusic();
+        GameManager.instance.GameOver(); 
     }
 }

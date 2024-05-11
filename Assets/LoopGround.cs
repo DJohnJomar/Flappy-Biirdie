@@ -17,6 +17,7 @@ public class LoopGround : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         startSize = new Vector2(spriteRenderer.size.x, spriteRenderer.size.y);
         Console.WriteLine(spriteRenderer.size.x);
+        
     }
 
     private void Update()
