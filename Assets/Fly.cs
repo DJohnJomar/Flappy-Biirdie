@@ -17,6 +17,7 @@ public class Fly : MonoBehaviour
     }
     private void Update()
     {
+        //Increases the vertical velocity by the velocity variable d
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             rb.velocity = Vector2.up * velocity;
@@ -27,11 +28,13 @@ public class Fly : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Changes object's rotation based on y speed
         transform.rotation = Quaternion.Euler(0,0,rb.velocity.y*rotationSpeed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //When collided with anything, it calls the GameManager's GameOver method to call the game over sequence
         audioManager.PlaySFX(audioManager.death);
         audioManager.StopBackgroundMusic();
         GameManager.instance.GameOver(); 

@@ -22,6 +22,9 @@ public class LoopGround : MonoBehaviour
 
     private void Update()
     {
+        //Ground looping effect
+        //Updates the sprite's size using speed*time value
+        //When it reached the specified max width, it resets its size to the starting size
         spriteRenderer.size = new Vector2(spriteRenderer.size.x +speed * Time.deltaTime, spriteRenderer.size.y);
 
         if(spriteRenderer.size.x > width)
