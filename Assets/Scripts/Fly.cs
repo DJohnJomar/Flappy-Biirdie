@@ -7,6 +7,8 @@ public class Fly : MonoBehaviour
 {
     [SerializeField] private float velocity = 7.5f;
     [SerializeField] private float rotationSpeed = 20f;
+    [SerializeField] private float flapCD = .5f;
+    private float cooldownTimer = 0f;
     private Rigidbody2D rb;
     AudioManager audioManager;
 
@@ -17,11 +19,19 @@ public class Fly : MonoBehaviour
     }
     private void Update()
     {
-        //Increases the vertical velocity by the velocity variable d
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+
+
+        // Update the cooldown timer
+        if (cooldownTimer > 0)
         {
-            rb.velocity = Vector2.up * velocity;
-            audioManager.PlaySFX(audioManager.jump);
+            cooldownTimer -= Time.deltaTime;
+        }
+
+        //Increases the vertical velocity by the velocity variable 
+        //Player cannot flap if cooldown is not yet 0
+        if (cooldownTimer <= 0f && Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        {
+            Flap();
 
         }
     }
@@ -38,5 +48,17 @@ public class Fly : MonoBehaviour
         audioManager.PlaySFX(audioManager.death);
         audioManager.StopBackgroundMusic();
         GameManager.instance.GameOver(); 
+    }
+
+    private void Flap()
+    {
+        // Reset the cooldown timer by the specified flap cooldown
+        cooldownTimer = flapCD;
+
+        // Set the vertical velocity
+        rb.velocity = Vector2.up * velocity;
+
+        // Play flap sound effect
+        audioManager.PlaySFX(audioManager.jump);
     }
 }
