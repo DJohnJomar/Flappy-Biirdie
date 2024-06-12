@@ -6,6 +6,7 @@ public class MovePipe : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private float speed = 1f;
+    [SerializeField] private float speedIncrease = 0.1f;
 
     void Start()
     {
@@ -16,5 +17,13 @@ public class MovePipe : MonoBehaviour
     void Update()
     {
         transform.position += Vector3.left * speed *Time.deltaTime;
+
+        // Check for left mouse button or spacebar press
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        {
+            //Adds a sort of Momentum
+            //Pipe speed increases per flap
+            speed += speedIncrease;
+        }
     }
 }
