@@ -26,4 +26,9 @@ public class MovePipe : MonoBehaviour
             speed += speedIncrease;
         }
     }
+
+    public void setSpeed(float speed)
+    {
+        this.speed = speed;
+    }
 }

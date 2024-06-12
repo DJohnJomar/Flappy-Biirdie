@@ -6,6 +6,8 @@ public class PipeSpawner : MonoBehaviour
 {
     [SerializeField] private float maxTime = 1.5f;
     [SerializeField] private float heightRange = .5f;
+    [SerializeField] private float minSpeed = 5f; // Minimum speed for the pipes
+    [SerializeField] private float maxSpeed = 7f; // Maximum speed for the pipes
     [SerializeField] private GameObject _pipe;
     private float timer; 
     // Start is called before the first frame update
@@ -34,6 +36,11 @@ public class PipeSpawner : MonoBehaviour
         //the y position varies from a random number between the set height range
         Vector3 spawnPos = transform.position + new Vector3(0, Random.Range(-heightRange, heightRange));
         GameObject pipe = Instantiate(_pipe, spawnPos, Quaternion.identity);
+
+        // Generate a random speed for the pipe
+        float randomSpeed = Random.Range(minSpeed, maxSpeed);
+        pipe.GetComponent<MovePipe>().setSpeed(randomSpeed);
+
 
         //The spawned pipe object is destroyed after 10 seconds (out of frame)
         Destroy(pipe, 10f);
