@@ -31,5 +31,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void StartGame()
+    {
+        Debug.Log("StartGame method called");
+        SceneManager.LoadScene(1);
+    }
+
+    
    
 }
